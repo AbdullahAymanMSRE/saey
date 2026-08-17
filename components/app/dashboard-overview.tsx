@@ -222,7 +222,7 @@ export function DashboardOverview() {
                     <span className="text-muted-foreground w-5 tabular-nums">
                       {i + 1}
                     </span>
-                    <span className="flex-1 truncate">
+                    <span className="min-w-0 flex-1 truncate">
                       {(locale === "en" ? car.titleEn : car.titleAr) ??
                         car.titleAr ??
                         "-"}

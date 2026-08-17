@@ -32,10 +32,10 @@ export default async function QrPage() {
 
         <div className="w-full space-y-2">
           <p className="text-muted-foreground text-xs">{t("url")}</p>
-          <div className="flex gap-2">
+          <div className="flex min-w-0 gap-2">
             <code
               dir="ltr"
-              className="bg-muted flex-1 truncate rounded-md px-3 py-2 text-sm"
+              className="bg-muted min-w-0 flex-1 truncate rounded-md px-3 py-2 text-sm"
             >
               {url}
             </code>

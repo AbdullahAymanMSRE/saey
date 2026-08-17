@@ -73,11 +73,11 @@ function Row({
 }) {
   return (
     <div className="space-y-1">
-      <p className="text-muted-foreground text-xs">{label}</p>
-      <div className="flex gap-2">
+      <p className="text-xs text-muted-foreground">{label}</p>
+      <div className="flex min-w-0 gap-2">
         <code
           dir="ltr"
-          className={`bg-muted flex-1 truncate rounded-md px-3 py-2 text-sm ${mono ? "font-mono tracking-wide" : ""}`}
+          className={`flex-1 overflow-auto rounded-md bg-muted px-3 py-2 text-sm ${mono ? "font-mono tracking-wide" : ""}`}
         >
           {value}
         </code>

@@ -164,7 +164,7 @@ export function AppShell({
               </SheetContent>
             </Sheet>
 
-            <span className="flex-1 truncate font-medium lg:hidden">{title}</span>
+            <span className="min-w-0 flex-1 truncate font-medium lg:hidden">{title}</span>
             <ThemeToggle />
             <LocaleSwitcher />
           </header>
