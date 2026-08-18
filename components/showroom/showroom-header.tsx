@@ -79,9 +79,12 @@ export async function ShowroomHeader({
         </div>
       </div>
 
-      <div className="mx-auto -mt-10 w-full max-w-6xl px-4 pb-6 sm:-mt-12">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
-          <Avatar className="border-background size-20 border-4 shadow-sm sm:size-24">
+      {/* `relative` keeps this above the cover: the cover wrapper is positioned,
+          so static content after it would paint underneath. Only the avatar is
+          pulled up into the cover — the title has to clear it. */}
+      <div className="relative mx-auto w-full max-w-6xl px-4 pb-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+          <Avatar className="border-background -mt-10 size-20 shrink-0 border-4 shadow-sm sm:-mt-12 sm:size-24">
             {agency.logoPath && (
               <AvatarImage src={imageUrl(agency.logoPath, "thumb")} alt={name} />
             )}
@@ -90,7 +93,7 @@ export async function ShowroomHeader({
             </AvatarFallback>
           </Avatar>
 
-          <div className="flex-1 pb-1">
+          <div className="min-w-0 flex-1 sm:pt-1">
             <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
               {name}
             </h1>
