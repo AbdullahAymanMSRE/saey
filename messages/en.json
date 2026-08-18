@@ -363,8 +363,8 @@
     "email": "Login email",
     "password": "Temporary password",
     "generatePassword": "Generate",
-    "harajUsername": "Haraj username",
-    "harajHelp": "Only you can set this. It is what stops an agency importing someone else's inventory.",
+    "harajUsername": "Haraj profile link",
+    "harajHelp": "Paste the link to their Haraj profile, for example https://haraj.com.sa/users/… . The account name on its own works too. Only you can set this: it is what stops an agency importing someone else's inventory.",
     "created": "Agency created",
     "credentialsTitle": "Hand these over now",
     "credentialsHelp": "This password is shown once and cannot be recovered. Copy it and send it to the agency, they will be asked to change it when they first sign in.",
@@ -394,7 +394,14 @@
     "addMake": "Add make",
     "addModel": "Add model",
     "makeCode": "Code",
-    "requestedBy": "Requested by"
+    "requestedBy": "Requested by",
+    "harajPlaceholder": "https://haraj.com.sa/users/…",
+    "setHaraj": "Haraj account",
+    "setHarajTitle": "Link a Haraj account",
+    "setHarajSaved": "Haraj account updated",
+    "harajResolved": "Will import as: {name}",
+    "harajClear": "Remove the link",
+    "harajNone": "No Haraj account linked"
   },
   "Errors": {
     "notFound": "Page not found",

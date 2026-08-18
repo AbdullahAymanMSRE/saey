@@ -18,7 +18,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { api } from "@/lib/api"
-import { showroomUrl, slugify } from "@/lib/urls"
+import { normalizeHarajUsername, showroomUrl, slugify } from "@/lib/urls"
 
 /** Mirrors lib/ids.generatePassword, ambiguous glyphs excluded on purpose. */
 function suggestPassword() {
@@ -83,6 +83,8 @@ export function CreateAgencyDialog({
       toast.error(map[err.message] ?? err.message)
     },
   })
+
+  const harajResolved = normalizeHarajUsername(harajUsername)
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -184,9 +186,18 @@ export function CreateAgencyDialog({
             <Label htmlFor="ca-haraj">{t("harajUsername")}</Label>
             <Input
               id="ca-haraj"
+              dir="ltr"
+              placeholder={t("harajPlaceholder")}
               value={harajUsername}
               onChange={(e) => setHarajUsername(e.target.value)}
             />
+            {/* A pasted URL is resolved in front of the admin, so they can see
+                the name the importer will query before saving. */}
+            {harajResolved && (
+              <p className="text-muted-foreground text-sm" dir="auto">
+                {t("harajResolved", { name: harajResolved })}
+              </p>
+            )}
             <p className="text-muted-foreground text-xs">{t("harajHelp")}</p>
           </div>
 

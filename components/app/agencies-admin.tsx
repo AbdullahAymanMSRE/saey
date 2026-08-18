@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   ExternalLink,
   KeyRound,
+  Link2,
   MoreHorizontal,
   Plus,
   UserRoundCog,
@@ -18,6 +19,10 @@ import { toast } from "sonner"
 import { CopyButton } from "@/components/app/copy-button"
 import { CreateAgencyDialog } from "@/components/app/create-agency-dialog"
 import { CredentialsDialog } from "@/components/app/credentials-dialog"
+import {
+  HarajAccountDialog,
+  type HarajTarget,
+} from "@/components/app/haraj-account-dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -51,6 +56,7 @@ export function AgenciesAdmin() {
   const queryClient = useQueryClient()
 
   const [creating, setCreating] = useState(false)
+  const [harajTarget, setHarajTarget] = useState<HarajTarget | null>(null)
   const [credentials, setCredentials] = useState<{
     email: string
     password: string
@@ -172,6 +178,19 @@ export function AgenciesAdmin() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem
+                      onClick={() =>
+                        setHarajTarget({
+                          id: agency.id,
+                          nameAr: agency.nameAr,
+                          harajUsername: agency.harajUsername,
+                        })
+                      }
+                    >
+                      <Link2 className="size-4" />
+                      {t("setHaraj")}
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem
                       onClick={() => {
                         if (confirm(t("resetPasswordConfirm", { name: agency.nameAr })))
                           resetPassword.mutate(agency)
@@ -232,6 +251,11 @@ export function AgenciesAdmin() {
           invalidate()
           setCredentials(creds)
         }}
+      />
+
+      <HarajAccountDialog
+        agency={harajTarget}
+        onClose={() => setHarajTarget(null)}
       />
 
       <CredentialsDialog

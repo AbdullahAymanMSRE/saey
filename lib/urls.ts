@@ -55,3 +55,35 @@ export function whatsappUrl(phone: string, message?: string) {
   const base = `https://wa.me/${toE164(phone)}`
   return message ? `${base}?text=${encodeURIComponent(message)}` : base
 }
+
+/**
+ * Normalises whatever an admin pastes into the Haraj username field.
+ *
+ * The value the API matches on is the advertiser's display name, which is also
+ * the last segment of their profile URL. In practice an admin pastes one of:
+ * the whole profile URL, the percent-encoded form copied from an address bar,
+ * or the name with a stray `@`. All three silently return zero ads, which looks
+ * like "the import is broken" rather than "the field wanted something else".
+ */
+export function normalizeHarajUsername(input: string): string {
+  let value = input.trim()
+
+  // A pasted profile URL: take the segment after /users/.
+  const fromUrl = value.match(/haraj\.com\.sa\/users\/([^/?#]+)/i)
+  if (fromUrl) value = fromUrl[1]
+
+  // Address bars hand back percent-encoded Arabic; decode it back to the name.
+  if (/%[0-9a-f]{2}/i.test(value)) {
+    try {
+      value = decodeURIComponent(value)
+    } catch {
+      // Malformed encoding: keep the raw text rather than throwing away input.
+    }
+  }
+
+  // The @id..._Handle form is a different identifier that the API does not
+  // match on, so only a leading decorative @ is stripped, never the rest.
+  value = value.replace(/^@/, "")
+
+  return value.replace(/\s+/g, " ").trim()
+}

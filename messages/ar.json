@@ -363,8 +363,8 @@
     "email": "بريد الدخول",
     "password": "كلمة مرور مؤقتة",
     "generatePassword": "توليد",
-    "harajUsername": "اسم المستخدم في حراج",
-    "harajHelp": "أنت وحدك من يحددها. هذا ما يمنع وكالة من استيراد إعلانات وكالة أخرى.",
+    "harajUsername": "رابط حساب حراج",
+    "harajHelp": "الصق رابط صفحتهم في حراج، مثل https://haraj.com.sa/users/… . ويمكن كتابة اسم الحساب وحده أيضاً. أنت وحدك من يحدده، وهذا ما يمنع وكالة من استيراد إعلانات وكالة أخرى.",
     "created": "تم إنشاء الوكالة",
     "credentialsTitle": "سلّم هذه البيانات الآن",
     "credentialsHelp": "تظهر كلمة المرور مرة واحدة ولا يمكن استرجاعها. انسخها وأرسلها للوكالة، وسيُطلب منهم تغييرها عند أول دخول.",
@@ -394,7 +394,14 @@
     "addMake": "إضافة ماركة",
     "addModel": "إضافة موديل",
     "makeCode": "الرمز",
-    "requestedBy": "طلبتها"
+    "requestedBy": "طلبتها",
+    "harajPlaceholder": "https://haraj.com.sa/users/…",
+    "setHaraj": "حساب حراج",
+    "setHarajTitle": "ربط حساب حراج",
+    "setHarajSaved": "تم تحديث حساب حراج",
+    "harajResolved": "سيتم الاستيراد باسم: {name}",
+    "harajClear": "إزالة الربط",
+    "harajNone": "لا يوجد حساب حراج مرتبط"
   },
   "Errors": {
     "notFound": "الصفحة غير موجودة",

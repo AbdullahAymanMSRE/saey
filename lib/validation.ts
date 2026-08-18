@@ -11,7 +11,20 @@ import {
   PHONE_PLATFORMS,
   SLUG_PATTERN,
 } from "./constants"
+import { normalizeHarajUsername } from "./urls"
 import type { Agency, Car } from "@/db/schema"
+
+/**
+ * The admin may paste the advertiser's Haraj profile link rather than type the
+ * name, so the value is normalised before it is stored. Storing the raw link
+ * would send the importer a username that matches nothing.
+ */
+const harajAccount = z
+  .string()
+  .trim()
+  .max(300)
+  .transform(normalizeHarajUsername)
+  .refine((v) => v.length <= 120, { message: "Haraj account name is too long" })
 
 /**
  * `nullish`, not `optional`.
@@ -40,14 +53,14 @@ export const createAgencySchema = z.object({
   email: z.email(),
   password: z.string().min(8).max(128),
   /** Admin-owned: the agency can never point imports at another profile. */
-  harajUsername: z.string().trim().max(120).optional(),
+  harajUsername: harajAccount.optional(),
 })
 
 export const updateAgencyAdminSchema = z.object({
   nameAr: z.string().trim().min(2).max(120).optional(),
   nameEn: z.string().trim().max(120).nullable().optional(),
   slug: slugSchema.optional(),
-  harajUsername: z.string().trim().max(120).nullable().optional(),
+  harajUsername: harajAccount.nullable().optional(),
   suspended: z.boolean().optional(),
 })
 
