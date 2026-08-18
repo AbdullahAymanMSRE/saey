@@ -116,7 +116,11 @@ export default async function CarPage({ params }: Props) {
               </h1>
 
               <div className="mt-3">
-                {car.listingType === "SALE" ? (
+                {car.priceOnRequest ? (
+                  <p className="text-2xl font-semibold">
+                    {t("priceOnRequest")}
+                  </p>
+                ) : car.listingType === "SALE" ? (
                   car.price != null ? (
                     <p className="text-3xl font-semibold">
                       {formatPrice(car.price, locale)}{" "}

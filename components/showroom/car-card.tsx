@@ -70,7 +70,9 @@ export function CarCard({
         </div>
 
         <div className="mt-auto pt-2">
-          {car.listingType === "SALE" ? (
+          {car.priceOnRequest ? (
+            <p className="font-medium">{t("priceOnRequest")}</p>
+          ) : car.listingType === "SALE" ? (
             car.price != null ? (
               <p className="text-lg font-semibold">
                 {formatPrice(car.price, locale)}{" "}

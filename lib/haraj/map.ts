@@ -50,6 +50,10 @@ export function mapPost(post: HarajPost) {
     condition: asEnum(CONDITIONS, info?.condition),
     city: city && (CITIES as readonly string[]).includes(city) ? city : null,
     price,
+    // A Haraj ad with no usable price is the same offer as "بالسوم": call and
+    // negotiate. Carrying that over means the import is publishable as-is
+    // instead of stalling on a price the seller never named.
+    priceOnRequest: price == null,
     titleAr: post.title?.trim() || null,
     descriptionAr: post.bodyTEXT?.trim() || null,
     harajPostId: Number(post.id),

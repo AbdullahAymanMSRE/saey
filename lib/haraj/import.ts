@@ -172,6 +172,7 @@ export async function runImport(opts: {
         condition: mapped.condition,
         city: mapped.city,
         price: mapped.price,
+        priceOnRequest: mapped.priceOnRequest,
         titleAr: mapped.titleAr,
         descriptionAr: mapped.descriptionAr,
         harajPostId: mapped.harajPostId,

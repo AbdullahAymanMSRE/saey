@@ -75,11 +75,14 @@ export async function getShowroomCars(
     )
   }
 
+  // "بالسوم" cars carry no figure, so they cannot take part in a price sort.
+  // They sit at the end of it either way rather than leading a "high to low"
+  // list on the strength of a NULL.
   const order =
     filters.sort === "priceAsc"
-      ? [asc(priceExpr)]
+      ? [sql`${priceExpr} asc nulls last`]
       : filters.sort === "priceDesc"
-        ? [desc(priceExpr)]
+        ? [sql`${priceExpr} desc nulls last`]
         : [desc(cars.createdAt)]
 
   const rows = await db.query.cars.findMany({

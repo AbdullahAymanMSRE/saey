@@ -53,7 +53,11 @@ export async function POST(
 
     if (body.acceptHarajPrice) {
       const diff = car.harajDiff as { price?: { to?: number } } | null
-      if (diff?.price?.to != null) patch.price = diff.price.to
+      // An accepted upstream figure is a price, so the car stops being "بالسوم".
+      if (diff?.price?.to != null) {
+        patch.price = diff.price.to
+        patch.priceOnRequest = false
+      }
       patch.harajDiff = null
     } else if (body.dismissHarajDiff) {
       patch.harajDiff = null

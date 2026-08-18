@@ -46,6 +46,7 @@ export default async function EditCarPage({
           rateDaily: car.rateDaily,
           rateWeekly: car.rateWeekly,
           rateMonthly: car.rateMonthly,
+          priceOnRequest: car.priceOnRequest,
           titleAr: car.titleAr,
           titleEn: car.titleEn,
           descriptionAr: car.descriptionAr,

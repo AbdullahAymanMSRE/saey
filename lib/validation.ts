@@ -133,6 +133,7 @@ export const carSchema = z
     rateDaily: z.number().int().min(0).max(1_000_000).nullable().optional(),
     rateWeekly: z.number().int().min(0).max(5_000_000).nullable().optional(),
     rateMonthly: z.number().int().min(0).max(20_000_000).nullable().optional(),
+    priceOnRequest: z.boolean().optional(),
     titleAr: z.string().trim().max(200).nullable().optional(),
     titleEn: z.string().trim().max(200).nullable().optional(),
     descriptionAr: z.string().trim().max(6000).nullable().optional(),
@@ -170,6 +171,7 @@ export function missingForPublish(
     | "descriptionEn"
     | "listingType"
     | "price"
+    | "priceOnRequest"
     | "rateDaily"
     | "rateWeekly"
     | "rateMonthly"
@@ -188,14 +190,19 @@ export function missingForPublish(
   if (!car.makeId && !car.otherMake) missing.push("make")
   if (!car.modelId && !car.otherModel) missing.push("model")
 
-  if (car.listingType === "SALE") {
-    if (car.price == null) missing.push("price")
-  } else if (
-    car.rateDaily == null &&
-    car.rateWeekly == null &&
-    car.rateMonthly == null
-  ) {
-    missing.push("rate")
+  // Pricing is only demanded when the agency named a figure at all. Choosing
+  // "بالسوم" is a deliberate answer to the price question, not a gap in the
+  // listing, so it publishes exactly like a priced car does.
+  if (!car.priceOnRequest) {
+    if (car.listingType === "SALE") {
+      if (car.price == null) missing.push("price")
+    } else if (
+      car.rateDaily == null &&
+      car.rateWeekly == null &&
+      car.rateMonthly == null
+    ) {
+      missing.push("rate")
+    }
   }
 
   if (agency.locales?.includes("en")) {

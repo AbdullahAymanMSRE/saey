@@ -318,6 +318,12 @@ export const cars = pgTable(
     rateDaily: integer("rate_daily"),
     rateWeekly: integer("rate_weekly"),
     rateMonthly: integer("rate_monthly"),
+    /**
+     * "بالسوم": the agency invites offers instead of naming a figure. A flag of
+     * its own rather than an inferred null price, so a draft that simply has no
+     * price typed yet is never shown to buyers as open to offers.
+     */
+    priceOnRequest: boolean("price_on_request").notNull().default(false),
 
     titleAr: text("title_ar"),
     titleEn: text("title_en"),

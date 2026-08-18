@@ -52,6 +52,7 @@ export type CarFormValues = {
   rateDaily: number | null
   rateWeekly: number | null
   rateMonthly: number | null
+  priceOnRequest: boolean
   titleAr: string | null
   titleEn: string | null
   descriptionAr: string | null
@@ -77,6 +78,7 @@ const EMPTY: CarFormValues = {
   rateDaily: null,
   rateWeekly: null,
   rateMonthly: null,
+  priceOnRequest: false,
   titleAr: null,
   titleEn: null,
   descriptionAr: null,
@@ -305,7 +307,23 @@ export function CarForm({
       </section>
 
       <section className="space-y-4">
-        {isSale ? (
+        <Tabs
+          value={values.priceOnRequest ? "ON_REQUEST" : "FIXED"}
+          onValueChange={(v) => set("priceOnRequest", v === "ON_REQUEST")}
+        >
+          <TabsList>
+            <TabsTrigger value="FIXED">{t("priceFixed")}</TabsTrigger>
+            <TabsTrigger value="ON_REQUEST">{t("priceOnRequest")}</TabsTrigger>
+          </TabsList>
+        </Tabs>
+
+        {/* The amount inputs disappear entirely under "بالسوم", there is no
+            figure to type and a disabled field would only invite the question. */}
+        {values.priceOnRequest ? (
+          <p className="text-muted-foreground text-xs">
+            {t("priceOnRequestHelp")}
+          </p>
+        ) : isSale ? (
           <Field label={t("price")}>
             <Input
               type="number"

@@ -13,6 +13,10 @@ import { missingForPublish, type CarInput } from "./validation"
  */
 export function carValues(input: CarInput) {
   const isSale = input.listingType === "SALE"
+  // "بالسوم" and a figure are mutually exclusive answers, so switching to it
+  // clears whatever was typed rather than leaving a number behind that the
+  // showroom hides but the next edit would resurrect.
+  const onRequest = input.priceOnRequest ?? false
   return {
     listingType: input.listingType,
     makeId: input.makeId ?? null,
@@ -28,10 +32,11 @@ export function carValues(input: CarInput) {
     city: input.city ?? null,
     // A car is one type or the other, so the other type's pricing is cleared
     // rather than left behind to reappear if the agency switches back.
-    price: isSale ? (input.price ?? null) : null,
-    rateDaily: isSale ? null : (input.rateDaily ?? null),
-    rateWeekly: isSale ? null : (input.rateWeekly ?? null),
-    rateMonthly: isSale ? null : (input.rateMonthly ?? null),
+    price: isSale && !onRequest ? (input.price ?? null) : null,
+    rateDaily: !isSale && !onRequest ? (input.rateDaily ?? null) : null,
+    rateWeekly: !isSale && !onRequest ? (input.rateWeekly ?? null) : null,
+    rateMonthly: !isSale && !onRequest ? (input.rateMonthly ?? null) : null,
+    priceOnRequest: onRequest,
     titleAr: input.titleAr ?? null,
     titleEn: input.titleEn ?? null,
     descriptionAr: input.descriptionAr ?? null,

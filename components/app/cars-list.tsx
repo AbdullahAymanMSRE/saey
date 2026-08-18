@@ -43,6 +43,7 @@ type CarRow = {
   status: "DRAFT" | "PUBLISHED" | "SOLD" | "RENTED_OUT"
   isHidden: boolean
   price: number | null
+  priceOnRequest: boolean
   rateDaily: number | null
   rateWeekly: number | null
   rateMonthly: number | null
@@ -228,13 +229,15 @@ export function CarsList() {
                   </div>
 
                   <p className="text-muted-foreground mt-1 text-sm">
-                    {car.listingType === "SALE"
-                      ? car.price != null
-                        ? `${formatPrice(car.price, locale)} ${tc("currency")}`
-                        : "-"
-                      : rate
-                        ? `${formatPrice(rate.value, locale)} ${tc("currency")} ${tc(rate.period)}`
-                        : "-"}
+                    {car.priceOnRequest
+                      ? t("priceOnRequest")
+                      : car.listingType === "SALE"
+                        ? car.price != null
+                          ? `${formatPrice(car.price, locale)} ${tc("currency")}`
+                          : "-"
+                        : rate
+                          ? `${formatPrice(rate.value, locale)} ${tc("currency")} ${tc(rate.period)}`
+                          : "-"}
                     {" · "}
                     {t("views", { count: car.viewCount })}
                   </p>
